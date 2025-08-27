@@ -1,0 +1,64 @@
+name: Content Generation with Gemini AI
+
+on:
+  schedule:
+    # Run every week on Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch: # Allow manual trigger
+
+env:
+  GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+  NODE_VERSION: '18'
+
+jobs:
+  generate-content:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate new tutorials
+        run: node scripts/generate-tutorials.js
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Update ebook content
+        run: node scripts/update-ebook.js
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Generate SEO metadata
+        run: node scripts/generate-seo.js
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git diff --staged --quiet || git commit -m "Auto-generate content with Gemini AI [$(date +'%Y-%m-%d')]"
+          git push
+
+  deploy:
+    needs: generate-content
+    runs-on: ubuntu-latest
+    if: success()
+    
+    steps:
+      - name: Trigger deployment
+        run: |
+          echo "Content updated, triggering deployment..."
+          # Add deployment trigger here (Netlify, Vercel, etc.)
