@@ -171,6 +171,180 @@ export default function EbookPage() {
         </div>
       </section>
 
+      {/* Author Section */}
+      <section className="py-16 bg-white">
+        <div className="section-container">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Sobre el Autor
+              </h2>
+            </div>
+
+            <div className="bg-gray-50 rounded-2xl p-8 lg:p-12">
+              <div className="lg:grid lg:grid-cols-3 lg:gap-8 items-center">
+                <div className="lg:col-span-1 text-center mb-8 lg:mb-0">
+                  <div className="w-32 h-32 bg-gradient-to-r from-primary-600 to-primary-700 rounded-full mx-auto flex items-center justify-center text-4xl text-white mb-4">
+                    👨‍💻
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900">CodeMentor Pro</h3>
+                  <p className="text-gray-600">Senior Full Stack Developer</p>
+                </div>
+
+                <div className="lg:col-span-2">
+                  <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                    Con más de 8 años de experiencia en desarrollo web y habiendo trabajado en empresas como
+                    Google, Microsoft y startups exitosas, he ayudado a más de 10,000 desarrolladores a
+                    conseguir su primer empleo tech.
+                  </p>
+
+                  <p className="text-gray-700 leading-relaxed mb-6">
+                    Mi enfoque único combina enseñanza práctica con estrategias profesionales probadas.
+                    Este ebook es el resultado de años de experiencia tanto en desarrollo como en
+                    contratación de talento tech.
+                  </p>
+
+                  <div className="grid md:grid-cols-3 gap-4 text-center">
+                    <div className="bg-white rounded-lg p-4">
+                      <div className="text-2xl font-bold text-primary-600">10,000+</div>
+                      <div className="text-sm text-gray-600">Estudiantes Mentoreados</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-4">
+                      <div className="text-2xl font-bold text-primary-600">500+</div>
+                      <div className="text-sm text-gray-600">Desarrolladores Contratados</div>
+                    </div>
+                    <div className="bg-white rounded-lg p-4">
+                      <div className="text-2xl font-bold text-primary-600">8</div>
+                      <div className="text-sm text-gray-600">Años de Experiencia</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Technology Integration */}
+      <section className="py-16 bg-gradient-to-r from-blue-50 to-cyan-50">
+        <div className="section-container">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">
+              Contenido Siempre Actualizado
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Este ebook utiliza tecnología de vanguardia para mantenerse al día con las últimas tendencias
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="bg-white rounded-xl p-6 shadow-sm">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <span className="text-2xl">🤖</span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  Powered by Gemini AI
+                </h3>
+                <p className="text-gray-600">
+                  El contenido se actualiza automáticamente usando Gemini 1.5 Flash para incluir
+                  las últimas tendencias y mejores prácticas del desarrollo web.
+                </p>
+              </div>
+
+              <div className="bg-white rounded-xl p-6 shadow-sm">
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <span className="text-2xl">⚡</span>
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                  GitHub Actions Automation
+                </h3>
+                <p className="text-gray-600">
+                  Pipeline automatizado que regenera y actualiza el contenido semanalmente,
+                  garantizando que siempre tengas información fresca y relevante.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section className="py-16 bg-white">
+        <div className="section-container">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                Preguntas Frecuentes
+              </h2>
+              <p className="text-xl text-gray-600">
+                Resolvemos las dudas más comunes sobre el ebook
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  ¿En qué formato viene el ebook?
+                </h3>
+                <p className="text-gray-600">
+                  Recibes el ebook en formato PDF optimizado para lectura en cualquier dispositivo,
+                  plus una versión EPUB para e-readers y acceso web permanente.
+                </p>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  ¿Incluye código fuente de los proyectos?
+                </h3>
+                <p className="text-gray-600">
+                  Sí, incluye todo el código fuente de los 12 proyectos prácticos, templates de CV,
+                  portfolio y acceso a repositorio privado de GitHub con ejemplos adicionales.
+                </p>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  ¿Cómo funcionan las actualizaciones automáticas?
+                </h3>
+                <p className="text-gray-600">
+                  Cada semana, nuestro sistema de IA actualiza el contenido con nuevas tendencias.
+                  Recibes notificaciones por email cuando hay actualizaciones importantes disponibles.
+                </p>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  ¿Hay soporte después de la compra?
+                </h3>
+                <p className="text-gray-600">
+                  Incluye acceso a nuestra comunidad privada de Discord, sesiones de Q&A mensuales
+                  y soporte directo por email durante 6 meses.
+                </p>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  ¿Qué incluye la garantía de reembolso?
+                </h3>
+                <p className="text-gray-600">
+                  Tienes 30 días completos para revisar el contenido. Si no estás satisfecho por
+                  cualquier razón, te devolvemos el 100% sin preguntas.
+                </p>
+              </div>
+
+              <div className="bg-gray-50 rounded-lg p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                  ¿Es adecuado para principiantes?
+                </h3>
+                <p className="text-gray-600">
+                  Absolutamente. El ebook está diseñado para llevarte desde cero hasta nivel intermedio-avanzado,
+                  con explicaciones claras y ejemplos paso a paso.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Final CTA */}
       <section className="py-16 bg-gray-900 text-white">
         <div className="section-container text-center">
@@ -178,14 +352,23 @@ export default function EbookPage() {
             Empieza tu carrera tech hoy mismo
           </h2>
           <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            Miles de desarrolladores ya han transformado su carrera. 
+            Miles de desarrolladores ya han transformado su carrera.
             ¿Cuándo será tu turno?
           </p>
-          
-          <button className="inline-flex items-center bg-yellow-400 text-gray-900 font-bold py-4 px-8 rounded-lg hover:bg-yellow-300 transition-colors text-lg">
-            <Download className="h-6 w-6 mr-2" />
-            Descargar Ahora - $29
-          </button>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button className="inline-flex items-center bg-yellow-400 text-gray-900 font-bold py-4 px-8 rounded-lg hover:bg-yellow-300 transition-colors text-lg">
+              <Download className="h-6 w-6 mr-2" />
+              Descargar Ahora - $29
+            </button>
+            <button className="inline-flex items-center border-2 border-gray-400 text-gray-300 font-semibold py-4 px-8 rounded-lg hover:border-white hover:text-white transition-colors">
+              Vista Previa Gratis
+            </button>
+          </div>
+
+          <p className="text-sm text-gray-400 mt-4">
+            💳 Pago seguro • 🔒 Garantía 30 días • ⚡ Descarga instantánea
+          </p>
         </div>
       </section>
     </div>
