@@ -1,4 +1,5 @@
 import { Download, Star, CheckCircle, Users, Clock, Shield } from 'lucide-react'
+import PaymentSection from './components/PaymentSection'
 
 export default function EbookPage() {
   const benefits = [
@@ -65,16 +66,7 @@ export default function EbookPage() {
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
-                <button className="inline-flex items-center bg-yellow-400 text-gray-900 font-bold py-4 px-8 rounded-lg hover:bg-yellow-300 transition-colors text-lg">
-                  <Download className="h-6 w-6 mr-2" />
-                  Descargar Ahora - $29
-                </button>
-                
-                <button className="inline-flex items-center border-2 border-gray-300 text-gray-300 font-semibold py-4 px-8 rounded-lg hover:border-white hover:text-white transition-colors">
-                  Vista Previa Gratis
-                </button>
-              </div>
+              <PaymentSection />
             </div>
 
             <div className="mt-12 lg:mt-0">
