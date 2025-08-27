@@ -1,7 +1,15 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
-import { Download, CheckCircle, Users, Star, ArrowRight, FileText, Briefcase, DollarSign, Network } from 'lucide-react'
+import { Download, CheckCircle, Users, Star, ArrowRight, FileText, Briefcase, DollarSign, Network, Eye, Calculator } from 'lucide-react'
+import Modal from '@/components/Modal'
+import RateCalculator from '@/components/RateCalculator'
 
 export default function CareerPage() {
+  const [activeModal, setActiveModal] = useState<string | null>(null)
+  const [downloadingGuide, setDownloadingGuide] = useState<string | null>(null)
+
   const careerGuides = [
     {
       id: 'cv-optimization',
@@ -16,7 +24,50 @@ export default function CareerPage() {
       ],
       downloadCount: '15,000+',
       rating: 4.9,
-      color: 'from-blue-500 to-blue-600'
+      color: 'from-blue-500 to-blue-600',
+      previewContent: `
+# CV Técnico Optimizado - Vista Previa
+
+## 📋 Contenido de la Guía
+
+### 1. Estructura ATS-Friendly
+- Formato que pasa filtros automáticos
+- Secciones obligatorias y opcionales
+- Longitud ideal por sección
+
+### 2. Keywords por Tecnología
+- Frontend: React, Vue, Angular, TypeScript
+- Backend: Node.js, Python, Java, PHP
+- DevOps: AWS, Docker, Kubernetes
+- Mobile: React Native, Flutter
+
+### 3. Sección de Proyectos
+- Cómo describir proyectos técnicos
+- Métricas de impacto
+- Links a demos y repositorios
+
+### 4. Optimización LinkedIn
+- Sincronización CV-LinkedIn
+- Keywords para búsquedas
+- Recomendaciones estratégicas
+
+## 🎯 Ejemplo de Proyecto Optimizado
+
+**E-commerce React con Stripe**
+- Desarrollé plataforma de e-commerce usando React, Next.js y Stripe
+- Implementé carrito de compras, checkout y panel admin
+- Optimicé performance: 95% Lighthouse score
+- Resultado: 40% aumento en conversiones
+- Tech stack: React, Next.js, TypeScript, Stripe, MongoDB
+- [Demo](link) | [Código](github)
+
+## ✅ Checklist Final
+- [ ] Formato ATS-compatible
+- [ ] Keywords relevantes incluidas
+- [ ] Proyectos con métricas
+- [ ] Enlaces funcionando
+- [ ] Menos de 2 páginas
+      `
     },
     {
       id: 'portfolio-development',
@@ -31,7 +82,60 @@ export default function CareerPage() {
       ],
       downloadCount: '12,500+',
       rating: 4.8,
-      color: 'from-purple-500 to-purple-600'
+      color: 'from-purple-500 to-purple-600',
+      previewContent: `
+# Portfolio que Convierte - Vista Previa
+
+## 🎨 Estructura Efectiva
+
+### 1. Página Principal
+- Hero section con elevator pitch
+- Tecnologías principales (iconos)
+- Call-to-action claro
+- Proyectos destacados (3 máximo)
+
+### 2. Página de Proyectos
+- Grid de proyectos con filtros
+- Cada proyecto: imagen, descripción, tech stack
+- Links a demo y código
+- Caso de estudio detallado
+
+### 3. Sobre Mí
+- Historia personal breve
+- Pasión por tecnología
+- Objetivos profesionales
+- Foto profesional
+
+### 4. Contacto
+- Formulario funcional
+- Links a redes sociales
+- Disponibilidad para trabajo
+- CV descargable
+
+## 🚀 Ejemplo de Caso de Estudio
+
+**TaskMaster - App de Productividad**
+
+**El Problema:** Los freelancers necesitan mejor organización
+**La Solución:** App web con timer Pomodoro y tracking de tareas
+**Mi Rol:** Full Stack Developer (proyecto personal)
+
+**Proceso:**
+1. Research: Encuestas a 50 freelancers
+2. Diseño: Wireframes en Figma
+3. Development: React + Node.js + MongoDB
+4. Testing: Tests automatizados con Jest
+5. Deploy: Vercel + Railway
+
+**Resultados:**
+- 500+ usuarios en primer mes
+- 4.8/5 rating en Product Hunt
+- Featured en newsletter de Indie Hackers
+
+**Tech Stack:** React, TypeScript, Node.js, MongoDB, Socket.io
+
+[Ver Demo](link) | [Código](github) | [Caso de Estudio Completo](link)
+      `
     },
     {
       id: 'interview-preparation',
@@ -46,7 +150,64 @@ export default function CareerPage() {
       ],
       downloadCount: '18,200+',
       rating: 4.9,
-      color: 'from-green-500 to-green-600'
+      color: 'from-green-500 to-green-600',
+      previewContent: `
+# Preparación de Entrevistas - Vista Previa
+
+## 🎯 Tipos de Entrevistas
+
+### 1. Entrevista Técnica
+**Preguntas Frecuentes:**
+- "Explica la diferencia entre let, const y var"
+- "¿Cómo funciona el event loop en JavaScript?"
+- "¿Qué es el virtual DOM y por qué es útil?"
+- "Diferencias entre SQL y NoSQL"
+
+**Coding Challenges Comunes:**
+- FizzBuzz (calentamiento)
+- Reverse string/array
+- Find duplicates in array
+- Implement debounce function
+- API fetch with error handling
+
+### 2. Entrevista de Comportamiento
+**Framework STAR:** Situation, Task, Action, Result
+
+**Preguntas Típicas:**
+- "Cuéntame sobre un proyecto desafiante"
+- "¿Cómo manejas deadlines ajustados?"
+- "Describe una vez que tuviste que aprender algo nuevo rápidamente"
+
+### 3. System Design (Senior+)
+- Diseño de API REST
+- Arquitectura de base de datos
+- Consideraciones de escalabilidad
+- Trade-offs técnicos
+
+## 💡 Ejemplo de Respuesta STAR
+
+**Pregunta:** "Describe un bug difícil que resolviste"
+
+**Situation:** En mi proyecto de e-commerce, los usuarios reportaban que el carrito se vaciaba aleatoriamente.
+
+**Task:** Necesitaba encontrar y arreglar el bug sin afectar la funcionalidad existente.
+
+**Action:** 
+1. Reproduje el bug en desarrollo
+2. Analicé logs del servidor y cliente
+3. Descubrí que era un race condition en localStorage
+4. Implementé debouncing para las actualizaciones
+5. Agregué tests para prevenir regresiones
+
+**Result:** Bug resuelto, 0 reportes adicionales, mejoré la arquitectura del state management.
+
+## 🗣️ Tips de Comunicación
+- Piensa en voz alta durante coding
+- Pregunta clarificaciones
+- Explica tu razonamiento
+- Admite cuando no sabes algo
+- Propone alternativas
+      `
     },
     {
       id: 'salary-negotiation',
@@ -61,7 +222,75 @@ export default function CareerPage() {
       ],
       downloadCount: '9,800+',
       rating: 4.7,
-      color: 'from-yellow-500 to-orange-500'
+      color: 'from-yellow-500 to-orange-500',
+      previewContent: `
+# Negociación Salarial - Vista Previa
+
+## 💰 Research de Mercado
+
+### Fuentes Confiables:
+- **Glassdoor:** Salarios por empresa y ubicación
+- **Levels.fyi:** Rangos detallados por nivel
+- **Stack Overflow Survey:** Tendencias anuales
+- **LinkedIn Salary:** Datos regionalizados
+- **AngelList:** Startups y equity
+
+### Factores que Afectan Salario:
+- Años de experiencia
+- Stack tecnológico
+- Tamaño de empresa
+- Ubicación (remoto/presencial)
+- Industria (fintech, e-commerce, etc.)
+
+## 🎯 Scripts de Negociación
+
+### Inicial:
+"Gracias por la oferta. Estoy muy emocionado por la oportunidad. Basado en mi investigación de mercado y experiencia, esperaba un rango de $X - $Y. ¿Hay flexibilidad en la compensación?"
+
+### Contraofertas:
+"Aprecio la oferta revisada. Para llegar a un acuerdo, ¿podrían considerar $X, o incluir [beneficio específico]?"
+
+### Múltiples Ofertas:
+"Tengo otra oferta que valoro en $X total. [Esta empresa] es mi primera opción. ¿Hay manera de igualar o superar esa oferta?"
+
+## 📊 Tabla de Negociación
+
+| Beneficio | Valor Estimado | Negociabilidad |
+|-----------|----------------|----------------|
+| Salario base | 100% | Alta |
+| Equity/Stock options | 10-30% | Media |
+| Bonus anual | 10-20% | Alta |
+| Vacaciones extras | $2k-5k | Alta |
+| Presupuesto formación | $1k-3k | Alta |
+| Setup remoto | $1k-2k | Media |
+| Seguro premium | $2k-4k | Baja |
+
+## ⏰ Timing Perfecto
+
+**Cuándo NO negociar:**
+- Primera conversación
+- Durante entrevistas técnicas
+- Si no tienes leverage
+
+**Cuándo SÍ negociar:**
+- Después de la oferta formal
+- Con múltiples ofertas
+- Al renovar contrato
+- Después de promotion/raise cycle
+
+## 🔥 Ejemplo Real
+
+**Situación:** Oferta inicial $60k, esperaba $70k
+
+**Estrategia:**
+1. "Gracias por la oferta. Muy emocionado por el rol."
+2. "Basado en mi experiencia con React y Node.js, y el mercado actual, esperaba $70k."
+3. "¿Hay flexibilidad en el salario base?"
+
+**Resultado:** $67k + $2k presupuesto formación + 1 semana vacaciones extra
+
+**Total value:** ~$70k equivalente
+      `
     }
   ]
 
@@ -92,6 +321,29 @@ export default function CareerPage() {
     { label: 'Tiempo Promedio de Búsqueda', value: '6 semanas' },
     { label: 'Tasa de Éxito', value: '87%' }
   ]
+
+  const handleDownload = async (guideId: string) => {
+    setDownloadingGuide(guideId)
+    
+    // Simulate download process
+    setTimeout(() => {
+      // In a real app, this would download the actual file
+      alert(`Descargando guía: ${careerGuides.find(g => g.id === guideId)?.title}`)
+      setDownloadingGuide(null)
+    }, 2000)
+  }
+
+  const openPreview = (guideId: string) => {
+    setActiveModal(`preview-${guideId}`)
+  }
+
+  const openCalculator = () => {
+    setActiveModal('calculator')
+  }
+
+  const closeModal = () => {
+    setActiveModal(null)
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -195,10 +447,28 @@ export default function CareerPage() {
                     </div>
 
                     <div className="flex gap-3">
-                      <button className="btn-primary flex-1">
-                        Descargar Gratis
+                      <button 
+                        onClick={() => handleDownload(guide.id)}
+                        disabled={downloadingGuide === guide.id}
+                        className="btn-primary flex-1 disabled:opacity-50"
+                      >
+                        {downloadingGuide === guide.id ? (
+                          <div className="flex items-center justify-center">
+                            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                            Descargando...
+                          </div>
+                        ) : (
+                          <>
+                            <Download className="h-4 w-4 mr-2" />
+                            Descargar Gratis
+                          </>
+                        )}
                       </button>
-                      <button className="border-2 border-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:border-green-600 hover:text-green-600 transition-colors">
+                      <button 
+                        onClick={() => openPreview(guide.id)}
+                        className="border-2 border-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-lg hover:border-green-600 hover:text-green-600 transition-colors"
+                      >
+                        <Eye className="h-4 w-4 mr-1 inline" />
                         Vista Previa
                       </button>
                     </div>
@@ -292,7 +562,11 @@ export default function CareerPage() {
                     <p className="text-gray-600 mb-6">
                       Descubre tu tarifa ideal en menos de 2 minutos
                     </p>
-                    <button className="btn-secondary w-full">
+                    <button 
+                      onClick={openCalculator}
+                      className="btn-secondary w-full"
+                    >
+                      <Calculator className="h-5 w-5 mr-2" />
                       Usar Calculadora
                     </button>
                   </div>
@@ -325,6 +599,47 @@ export default function CareerPage() {
           </div>
         </div>
       </section>
+
+      {/* Modals */}
+      {careerGuides.map(guide => (
+        <Modal
+          key={`modal-${guide.id}`}
+          isOpen={activeModal === `preview-${guide.id}`}
+          onClose={closeModal}
+          title={`Vista Previa: ${guide.title}`}
+          size="lg"
+        >
+          <div className="prose prose-gray max-w-none">
+            <pre className="whitespace-pre-wrap text-sm bg-gray-50 p-4 rounded-lg overflow-auto max-h-96">
+              {guide.previewContent}
+            </pre>
+          </div>
+          <div className="mt-6 flex gap-3">
+            <button 
+              onClick={() => {
+                closeModal()
+                handleDownload(guide.id)
+              }}
+              className="btn-primary"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              Descargar Guía Completa
+            </button>
+            <button onClick={closeModal} className="btn-secondary">
+              Cerrar
+            </button>
+          </div>
+        </Modal>
+      ))}
+
+      <Modal
+        isOpen={activeModal === 'calculator'}
+        onClose={closeModal}
+        title="Calculadora de Tarifas Freelance"
+        size="xl"
+      >
+        <RateCalculator />
+      </Modal>
     </div>
   )
 }
