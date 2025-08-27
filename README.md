@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # CodeMentor Pro - Programming Education Platform
 
 Una plataforma completa para aprender programación con microtutoriales, series de entrenamiento y guías de carrera profesional.
@@ -180,3 +181,12 @@ Este proyecto está bajo la Licencia MIT. Ver `LICENSE` para más detalles.
 2. Conecta [Netlify](#connect-netlify) para hosting  
 3. Configura tu Gemini API key
 4. ¡Lanza tu plataforma!
+=======
+# edukoder
+
+This repository was initialized by Builder.io.
+
+## Getting Started
+
+Welcome to your new repository! You can now start building your project.
+>>>>>>> refs/remotes/origin/main
