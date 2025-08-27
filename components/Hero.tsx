@@ -58,9 +58,9 @@ export default function Hero() {
                     <div className="text-green-400 text-sm mb-2">// Ejemplo de microtutorial</div>
                     <div className="text-blue-300">function</div>
                     <div className="text-yellow-300 ml-2">crearDesarrollador</div>
-                    <div className="text-white">() {</div>
+                    <div className="text-white">() {'{'}</div>
                     <div className="text-gray-300 ml-4">return "¡Éxito!";</div>
-                    <div className="text-white">}</div>
+                    <div className="text-white">{'}'}</div>
                   </div>
                 </div>
               </div>
