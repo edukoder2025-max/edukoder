@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { CheckCircle, Clock, Users, Star, PlayCircle, Download, Code, Zap } from 'lucide-react'
+import ProgressTracker from '@/components/ProgressTracker'
 
 export default function FrontendDeveloperPage() {
   const modules = [

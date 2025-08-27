@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { ArrowRight, PlayCircle, BookOpen } from 'lucide-react'
+import SearchBar from './SearchBar'
 
 export default function Hero() {
   return (
@@ -22,11 +23,16 @@ export default function Hero() {
                 Explorar Tutoriales
                 <ArrowRight className="h-5 w-5 ml-2" />
               </Link>
-              
+
               <Link href="/ebook" className="inline-flex items-center border-2 border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-primary-700 transition-colors">
                 <BookOpen className="h-5 w-5 mr-2" />
                 Descargar Ebook
               </Link>
+            </div>
+
+            {/* Search Bar */}
+            <div className="mb-8">
+              <SearchBar />
             </div>
 
             <div className="flex items-center space-x-8 text-sm">
