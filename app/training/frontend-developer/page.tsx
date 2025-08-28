@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { CheckCircle, Clock, Users, Star, PlayCircle, Download, Code, Zap, ChevronDown, ChevronUp, BookOpen, Trophy, Target, ArrowRight, Monitor, Smartphone } from 'lucide-react'
 
