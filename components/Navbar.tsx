@@ -48,7 +48,8 @@ export default function Navbar() {
         { name: 'Negociación Salarial', href: '/career#salary-negotiation' },
       ]
     },
-    { name: 'Ebook', href: '/ebook', icon: ShoppingCart }
+    { name: 'Ebook', href: '/ebook', icon: ShoppingCart },
+    { name: 'Mi Progreso', href: '/dashboard', icon: User }
   ]
 
   // Handle scroll effect
