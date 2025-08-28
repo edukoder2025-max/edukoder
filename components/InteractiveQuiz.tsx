@@ -6,18 +6,32 @@ import { CheckCircle, XCircle, RefreshCw } from 'lucide-react'
 interface QuizQuestion {
   question: string
   options: string[]
-  correct: number
+  // support both 'correct' and legacy 'correctAnswer'
+  correct?: number
+  correctAnswer?: number
   explanation?: string
 }
 
-interface InteractiveQuizProps {
+interface QuizData {
+  lessonId: string
   questions: QuizQuestion[]
-  title?: string
 }
 
-export default function InteractiveQuiz({ questions, title = "Quiz Interactivo" }: InteractiveQuizProps) {
+interface InteractiveQuizProps {
+  quizData: QuizData
+  title?: string
+  onQuizComplete?: (score: number) => void
+}
+
+export default function InteractiveQuiz({ quizData, title = "Quiz Interactivo", onQuizComplete }: InteractiveQuizProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0)
-  const [selectedAnswers, setSelectedAnswers] = useState<number[]>(new Array(questions.length).fill(-1))
+  // normalize questions to ensure 'correct' field exists
+  const normalizedQuestions = quizData.questions.map(q => ({
+    ...q,
+    correct: typeof (q as any).correct === 'number' ? (q as any).correct : (q as any).correctAnswer
+  }))
+
+  const [selectedAnswers, setSelectedAnswers] = useState<number[]>(new Array(normalizedQuestions.length).fill(-1))
   const [showResults, setShowResults] = useState(false)
   const [submitted, setSubmitted] = useState(false)
 
@@ -30,7 +44,7 @@ export default function InteractiveQuiz({ questions, title = "Quiz Interactivo" 
   }
 
   const nextQuestion = () => {
-    if (currentQuestion < questions.length - 1) {
+    if (currentQuestion < normalizedQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1)
     } else {
       setSubmitted(true)
@@ -46,14 +60,14 @@ export default function InteractiveQuiz({ questions, title = "Quiz Interactivo" 
 
   const restartQuiz = () => {
     setCurrentQuestion(0)
-    setSelectedAnswers(new Array(questions.length).fill(-1))
+    setSelectedAnswers(new Array(normalizedQuestions.length).fill(-1))
     setShowResults(false)
     setSubmitted(false)
   }
 
   const calculateScore = () => {
     return selectedAnswers.reduce((score, answer, index) => {
-      return score + (answer === questions[index].correct ? 1 : 0)
+      return score + (answer === normalizedQuestions[index].correct ? 1 : 0)
     }, 0)
   }
 
@@ -66,22 +80,22 @@ export default function InteractiveQuiz({ questions, title = "Quiz Interactivo" 
 
   if (showResults) {
     const score = calculateScore()
-    const percentage = Math.round((score / questions.length) * 100)
+  const percentage = Math.round((score / normalizedQuestions.length) * 100)
 
     return (
       <div className="bg-white rounded-lg p-6">
         <h3 className="text-xl font-semibold text-gray-900 mb-6">{title} - Resultados</h3>
         
         <div className="text-center mb-8">
-          <div className={`text-4xl font-bold mb-2 ${getScoreColor(score, questions.length)}`}>
-            {score}/{questions.length}
+          <div className={`text-4xl font-bold mb-2 ${getScoreColor(score, normalizedQuestions.length)}`}>
+            {score}/{normalizedQuestions.length}
           </div>
           <div className="text-gray-600">
             Puntuación: {percentage}%
           </div>
           
-          <div className="mt-4">
-            {percentage >= 80 ? (
+      <div className="mt-4">
+        {percentage >= 80 ? (
               <div className="text-green-600 font-medium">¡Excelente trabajo! 🎉</div>
             ) : percentage >= 60 ? (
               <div className="text-yellow-600 font-medium">Buen intento, pero puedes mejorar 💪</div>
@@ -92,7 +106,7 @@ export default function InteractiveQuiz({ questions, title = "Quiz Interactivo" 
         </div>
 
         <div className="space-y-6">
-          {questions.map((question, index) => (
+          {normalizedQuestions.map((question, index) => (
             <div key={index} className="border border-gray-200 rounded-lg p-4">
               <h4 className="font-medium text-gray-900 mb-3">
                 {index + 1}. {question.question}
@@ -156,7 +170,7 @@ export default function InteractiveQuiz({ questions, title = "Quiz Interactivo" 
     )
   }
 
-  const question = questions[currentQuestion]
+    const question = normalizedQuestions[currentQuestion]
   const isAnswered = selectedAnswers[currentQuestion] !== -1
 
   return (
@@ -164,7 +178,7 @@ export default function InteractiveQuiz({ questions, title = "Quiz Interactivo" 
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-xl font-semibold text-gray-900">{title}</h3>
         <div className="text-sm text-gray-500">
-          Pregunta {currentQuestion + 1} de {questions.length}
+          Pregunta {currentQuestion + 1} de {normalizedQuestions.length}
         </div>
       </div>
 
@@ -172,7 +186,7 @@ export default function InteractiveQuiz({ questions, title = "Quiz Interactivo" 
       <div className="w-full bg-gray-200 rounded-full h-2 mb-6">
         <div
           className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-          style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
+          style={{ width: `${((currentQuestion + 1) / normalizedQuestions.length) * 100}%` }}
         ></div>
       </div>
 
@@ -228,7 +242,16 @@ export default function InteractiveQuiz({ questions, title = "Quiz Interactivo" 
         </button>
         
         <button
-          onClick={nextQuestion}
+          onClick={() => {
+            if (currentQuestion === quizData.questions.length - 1) {
+              setSubmitted(true)
+              setShowResults(true)
+              const finalScore = calculateScore()
+              if (onQuizComplete) onQuizComplete(finalScore)
+            } else {
+              nextQuestion()
+            }
+          }}
           disabled={!isAnswered}
           className={`px-6 py-2 rounded-lg ${
             isAnswered
@@ -236,7 +259,7 @@ export default function InteractiveQuiz({ questions, title = "Quiz Interactivo" 
               : 'bg-gray-300 text-gray-500 cursor-not-allowed'
           } transition-colors`}
         >
-          {currentQuestion === questions.length - 1 ? 'Finalizar' : 'Siguiente'}
+          {currentQuestion === normalizedQuestions.length - 1 ? 'Finalizar' : 'Siguiente'}
         </button>
       </div>
     </div>

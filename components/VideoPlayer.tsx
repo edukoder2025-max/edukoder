@@ -23,11 +23,11 @@ interface VideoChapter {
 }
 
 interface VideoPlayerProps {
-  title: string
+  videoUrl?: string
+  title?: string
   description?: string
-  duration: string
+  duration?: string
   thumbnailUrl?: string
-  videoUrl?: string // En una implementación real
   chapters?: VideoChapter[]
   resources?: Array<{
     title: string
@@ -36,18 +36,21 @@ interface VideoPlayerProps {
   }>
   onProgress?: (progress: number) => void
   onComplete?: () => void
+  // New simple callback used by pages to report current time
+  onTimeUpdate?: (time: number) => void
 }
 
 export default function VideoPlayer({
   title,
   description,
-  duration,
+  duration = '0:00',
   thumbnailUrl = "/api/placeholder/800/450",
   videoUrl,
   chapters = [],
   resources = [],
   onProgress,
-  onComplete
+  onComplete,
+  onTimeUpdate
 }: VideoPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false)
   const [currentTime, setCurrentTime] = useState(0)
@@ -64,27 +67,31 @@ export default function VideoPlayer({
   const videoRef = useRef<HTMLVideoElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // If we're rendering an HTML5 video, wire native events to update state
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (isPlaying) {
-        setCurrentTime(prev => {
-          const newTime = prev + 1
-          if (onProgress) {
-            onProgress((newTime / totalTime) * 100)
-          }
-          if (newTime >= totalTime) {
-            setIsPlaying(false)
-            if (onComplete) {
-              onComplete()
-            }
-          }
-          return newTime
-        })
-      }
-    }, 1000)
+    const el = videoRef.current
+    if (!el) return
 
-    return () => clearInterval(interval)
-  }, [isPlaying, totalTime, onProgress, onComplete])
+    const handleTimeUpdate = () => {
+      const t = Math.floor(el.currentTime)
+      setCurrentTime(t)
+      if (onProgress && totalTime > 0) onProgress((t / totalTime) * 100)
+      if (onTimeUpdate) onTimeUpdate(t)
+    }
+
+    const handlePlay = () => setIsPlaying(true)
+    const handlePause = () => setIsPlaying(false)
+
+    el.addEventListener('timeupdate', handleTimeUpdate)
+    el.addEventListener('play', handlePlay)
+    el.addEventListener('pause', handlePause)
+
+    return () => {
+      el.removeEventListener('timeupdate', handleTimeUpdate)
+      el.removeEventListener('play', handlePlay)
+      el.removeEventListener('pause', handlePause)
+    }
+  }, [videoRef, onProgress, onTimeUpdate, totalTime])
 
   const togglePlay = () => {
     setIsPlaying(!isPlaying)
@@ -144,18 +151,40 @@ export default function VideoPlayer({
         onMouseEnter={() => setShowControls(true)}
         onMouseLeave={() => setShowControls(false)}
       >
-        {/* Thumbnail/Placeholder */}
-        <div className="absolute inset-0 flex items-center justify-center">
-          <img 
-            src={thumbnailUrl} 
-            alt={title}
-            className="w-full h-full object-cover"
-          />
-          
-          {/* Play Overlay */}
+        {/* Video area: iframe for YouTube/Vimeo, else HTML5 video */}
+        <div className="absolute inset-0 flex items-center justify-center bg-black">
+          {videoUrl && /youtube\.com|youtu\.be|vimeo\.com/.test(videoUrl) ? (
+            <iframe
+              src={videoUrl.includes('watch?v=') ? videoUrl.replace('watch?v=', 'embed/') : videoUrl}
+              className="w-full h-full"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              title={title || 'Video'}
+            />
+          ) : videoUrl ? (
+            <video
+              ref={videoRef}
+              src={videoUrl}
+              poster={thumbnailUrl}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            // fallback placeholder
+            <img src={thumbnailUrl} alt={title} className="w-full h-full object-cover" />
+          )}
+
+          {/* Play Overlay for HTML5 (iframe playback controls native) */}
           {!isPlaying && (
             <button
-              onClick={togglePlay}
+              onClick={() => {
+                // if HTML5 video, play via API
+                if (videoRef.current) videoRef.current.play()
+                else {
+                  // for iframe (YouTube) we can't control without API; open play by focusing
+                }
+                setIsPlaying(true)
+              }}
               className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition-colors"
             >
               <div className="bg-white/90 hover:bg-white rounded-full p-4 transition-colors">

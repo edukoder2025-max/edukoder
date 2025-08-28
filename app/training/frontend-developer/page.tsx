@@ -212,13 +212,13 @@ export default function FrontendDeveloperPage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className="btn-primary inline-flex items-center">
+                <Link href="/training/frontend-developer/week1/html-semantico" className="btn-primary inline-flex items-center">
                   <PlayCircle className="h-5 w-5 mr-2" />
                   Comenzar Gratis
-                </button>
-                <button className="border-2 border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-blue-600 transition-colors">
+                </Link>
+                <a href="#curriculum" className="border-2 border-white text-white font-semibold py-3 px-6 rounded-lg hover:bg-white hover:text-blue-600 transition-colors">
                   Ver Temario Completo
-                </button>
+                </a>
               </div>
             </div>
 
@@ -323,9 +323,23 @@ export default function FrontendDeveloperPage() {
                         </div>
                       </div>
                     </div>
-                    <button className="text-blue-600 hover:text-blue-700 font-medium">
+                    <Link
+                      href={`/training/frontend-developer/week${module.week}/${
+                        module.title
+                          .toLowerCase()
+                          .replace(/ /g, "-")
+                          .replace(/á/g, "a")
+                          .replace(/é/g, "e")
+                          .replace(/í/g, "i")
+                          .replace(/ó/g, "o")
+                          .replace(/ú/g, "u")
+                          .replace(/ñ/g, "n")
+                          .replace(/[^a-z0-9-]/g, "")
+                      }`}
+                      className="text-blue-600 hover:text-blue-700 font-medium"
+                    >
                       Ver Detalles
-                    </button>
+                    </Link>
                   </div>
 
                   <div className="grid lg:grid-cols-3 gap-6">
