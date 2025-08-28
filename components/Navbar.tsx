@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { Menu, X, Book, Code, Briefcase, ShoppingCart, ChevronDown } from 'lucide-react'
+import { Menu, X, Book, Code, Briefcase, ShoppingCart, ChevronDown, User } from 'lucide-react'
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -48,7 +48,8 @@ export default function Navbar() {
         { name: 'Negociación Salarial', href: '/career#salary-negotiation' },
       ]
     },
-    { name: 'Ebook', href: '/ebook', icon: ShoppingCart }
+    { name: 'Ebook', href: '/ebook', icon: ShoppingCart },
+    { name: 'Mi Progreso', href: '/dashboard', icon: User }
   ]
 
   // Handle scroll effect
