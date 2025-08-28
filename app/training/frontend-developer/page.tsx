@@ -301,14 +301,14 @@ export default function FrontendDeveloperPage() {
   ]
 
   const startLearning = () => {
-    // Here you would typically navigate to the first lesson or a signup flow
-    alert('¡Excelente! Te redirigiremos al primer módulo donde comenzarás tu viaje como Frontend Developer.')
-    // In a real app: router.push('/training/frontend-developer/week-1')
+    // Navigate to the course start page
+    router.push('/training/frontend-developer/start')
   }
 
   const handleDownloadGuide = () => {
-    alert('Descargando guía de estudio completa...')
-    // In a real app: trigger download of PDF guide
+    // In a real app, this would trigger a PDF download
+    // For now, we'll navigate to the ebook page
+    router.push('/ebook')
   }
 
   return (
