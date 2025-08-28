@@ -6,12 +6,13 @@ import Link from 'next/link'
 import { CheckCircle, Clock, Users, Star, PlayCircle, Download, Code, Zap, ChevronDown, ChevronUp, BookOpen, Trophy, Target, ArrowRight, Monitor, Smartphone } from 'lucide-react'
 
 export default function FrontendDeveloperPage() {
+  const router = useRouter()
   const [showFullCurriculum, setShowFullCurriculum] = useState(false)
   const [expandedModules, setExpandedModules] = useState<number[]>([])
 
   const toggleModule = (moduleIndex: number) => {
-    setExpandedModules(prev => 
-      prev.includes(moduleIndex) 
+    setExpandedModules(prev =>
+      prev.includes(moduleIndex)
         ? prev.filter(i => i !== moduleIndex)
         : [...prev, moduleIndex]
     )
